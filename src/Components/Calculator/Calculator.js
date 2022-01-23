@@ -4,17 +4,13 @@ import { useState } from "react/cjs/react.development";
 import axios from "axios";
 
 const { Option } = Select;
-const Calculator = () => {
+const Calculator = ({ updateTitle }) => {
   const [state, setState] = useState({
     currency: "USD",
     calculatedValue: 0,
   });
 
   const inputRef = useRef(null);
-
-  useEffect(() => {
-    recalculate();
-  });
 
   const recalculate = () => {
     axios
@@ -28,12 +24,17 @@ const Calculator = () => {
         console.log("Error");
         setState((s) => ({ ...s, calculatedValue: 0 }));
       });
-    return 1;
   };
+  useEffect(() => {
+    let isCancelled = false;
+    updateTitle("Bitcoin Umrechner");
+    if (!isCancelled) recalculate();
+    return () => (isCancelled = true);
+  });
 
   const currencyChanged = (newCurrency) => {
     setState((s) => ({ ...s, currency: newCurrency }));
-    recalculate();
+    recalculate(inputRef.current.value);
   };
 
   const valueChanged = () => {
