@@ -52,7 +52,12 @@ const Detail = ({ updateTitle }) => {
       renderItem={(item) => (
         <List.Item>
           <Card>
-            <Statistic title={item.title} value={item.content} />
+            <Statistic
+              decimalSeparator=","
+              groupSeparator="."
+              title={item.title}
+              value={item.content}
+            />
           </Card>
         </List.Item>
       )}

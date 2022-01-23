@@ -69,7 +69,12 @@ const Calculator = ({ updateTitle }) => {
       </Card>
 
       <Card style={{ margin: "10px 0" }}>
-        <Statistic title="Bitcoin" value={state.calculatedValue} />
+        <Statistic
+          decimalSeparator=","
+          groupSeparator="."
+          title="Bitcoin"
+          value={state.calculatedValue}
+        />
       </Card>
     </>
   );

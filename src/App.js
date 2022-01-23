@@ -13,13 +13,13 @@ import Detail from "./Components/Detail/Detail";
 import Calculator from "./Components/Calculator/Calculator";
 import Diagramm from "./Components/Diagramm/Diagramm";
 import { useState } from "react/cjs/react.development";
+import MyBitcoin from "./Components/MyBitcoin/MyBitcoin";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 
 const App = () => {
   const [title, setTitle] = useState("Dashboard");
-  const [selectedKey, setSelectedKey] = useState("1");
 
   const updateTitle = (newTitle) => {
     setTitle(newTitle);
@@ -28,7 +28,7 @@ const App = () => {
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider collapsible>
+        <Sider collapsible={false}>
           <div className="logo" />
           <Menu theme="dark" selectedKeys={[]} mode="inline">
             <Menu.Item key="/" icon={<DashboardOutlined />}>
@@ -51,9 +51,9 @@ const App = () => {
               <Link to="/Diagramm" />
             </Menu.Item>
 
-            <Menu.Item key="5" icon={<UserOutlined />}>
+            <Menu.Item key="/MyBitcoin" icon={<UserOutlined />}>
               Meine Bitcoin
-              <Link to="/Detail" />
+              <Link to="/MyBitcoin" />
             </Menu.Item>
           </Menu>
         </Sider>
@@ -77,6 +77,11 @@ const App = () => {
               <Route
                 path="/Diagramm"
                 element={<Diagramm updateTitle={updateTitle} />}
+              />
+
+              <Route
+                path="/MyBitcoin"
+                element={<MyBitcoin updateTitle={updateTitle} />}
               />
               <Route
                 path="/"
