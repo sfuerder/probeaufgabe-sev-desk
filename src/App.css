@@ -9,3 +9,13 @@
 .site-layout-background {
   background: #fff;
 }
+
+.title {
+  padding: 0 16px;
+  margin: 0 !important;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
