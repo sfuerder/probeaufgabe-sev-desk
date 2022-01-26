@@ -8,6 +8,7 @@ const Calculator = ({ updateTitle }) => {
   const [state, setState] = useState({
     currency: "USD",
     calculatedValue: 0,
+    loading: true,
   });
 
   const inputRef = useRef(null);
@@ -18,11 +19,15 @@ const Calculator = ({ updateTitle }) => {
         params: { currency: state.currency, value: inputRef.current.value },
       })
       .then((response) => {
-        setState((s) => ({ ...s, calculatedValue: response.data }));
+        setState((s) => ({
+          ...s,
+          calculatedValue: response.data,
+          loading: false,
+        }));
       })
       .catch((err) => {
         console.log("Error");
-        setState((s) => ({ ...s, calculatedValue: 0 }));
+        setState((s) => ({ ...s, calculatedValue: 0, loading: false }));
       });
   };
   useEffect(() => {
@@ -33,12 +38,12 @@ const Calculator = ({ updateTitle }) => {
   });
 
   const currencyChanged = (newCurrency) => {
-    setState((s) => ({ ...s, currency: newCurrency }));
+    setState((s) => ({ ...s, currency: newCurrency, loading: true }));
     recalculate(inputRef.current.value);
   };
 
   const valueChanged = () => {
-    // setState((s) => ({ ...s, value:  }));
+    setState((s) => ({ ...s, loading: true }));
     recalculate();
   };
 
@@ -73,6 +78,7 @@ const Calculator = ({ updateTitle }) => {
           decimalSeparator=","
           groupSeparator="."
           title="Bitcoin"
+          loading={state.loading}
           value={state.calculatedValue}
         />
       </Card>
